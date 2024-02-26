@@ -3,6 +3,30 @@ import Fs from "fs";
 import fsSync from "fs/promises";
 import path from "path";
 
+
+
+interface ApiResponse{
+  resp:{
+    message:string;
+    data:any
+  }
+ 
+}
+type Indexed = {
+  [key: string]: any;
+};
+
+export const helloService=async (req:Indexed,res:Response)=>{
+
+  // let rep:ApiResponse ={"resp":{"message":"Hello","data":[]}};
+  req.res.message="Hello";
+  req.res.data=[];
+  
+  return req;
+
+
+}
+
 export const renameService = async (req: Request, res: Response) => {
   let input = req.body;
   let ResourceDes = path.join(__dirname, "..", "..", "Resource");
@@ -28,6 +52,7 @@ export const renameService = async (req: Request, res: Response) => {
     await fsSync.rename(oldFile, newFile);
   } catch (e) {
     console.log(e);
+    
   }
 
   res.send({ message: "File Renamed SucessFully.!" });
